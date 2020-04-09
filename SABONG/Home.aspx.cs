@@ -207,14 +207,14 @@ namespace SABONG
         }
 
         protected void BarCode_TextChanged(object sender, EventArgs e)
-        {
+       {
             cmdback.Enabled = true;
             String connString = System.Configuration.ConfigurationManager.ConnectionStrings["webAppConnString"].ToString();
             conn = new MySql.Data.MySqlClient.MySqlConnection(connString);
             //sample.
             conn.Open();
             queryStr = "";
-            queryStr = "SELECT f.FightNo as fight, b.Side as Side, b.Odds as Odds, b.BetAmount as BetAmount, b.Price as Price, b.TotalWinAmount as TotalWinAmount FROM u208625346_derby.tblBet b left join tblFight f on f.SultadaID = b.SultadaID WHERE b.Barcode='" + BarCode.Text + "' and b.Status = '0'";
+            queryStr = "SELECT f.FightNo as fight, b.Side as Side, b.Odds as Odds, b.BetAmount as BetAmount, b.Price as Price, b.TotalWinAmount as TotalWinAmount FROM u208625346_derby.tblBet b left join tblFight f on f.SultadaID = b.SultadaID WHERE b.Barcode='" + BarCode.Text + "' and b.Status = '1' and b.ClaimStatus = '0' and b.WinStatus = '1'";
 
             cmd = new MySql.Data.MySqlClient.MySqlCommand(queryStr, conn);
 
@@ -248,7 +248,7 @@ namespace SABONG
                 lblbetamount2.InnerText = betamount2;
                 lblprize2.InnerText = prize2;
                 lbltotalpayout2.InnerText = totalpayout2;
-                BarCode.Text = "";
+               // BarCode.Text = "";
 
             }
             else
@@ -434,7 +434,7 @@ namespace SABONG
             int payout = multiplier * (Convert.ToInt32(lblodds.Text));
             int prize = payout - (Convert.ToInt32(txtamount.Text));
             // string barcode1 = sulno +userid + Betno + date; //temporary changed barcode format, 
-            string barcode1 = sulno + userid;
+            string barcode1 = Label2.Text + Betno;
             String connString = System.Configuration.ConfigurationManager.ConnectionStrings["webAppConnString"].ToString();
             conn = new MySql.Data.MySqlClient.MySqlConnection(connString);
             conn.Open();
@@ -495,7 +495,8 @@ namespace SABONG
             y += lineOffset;
             e.Graphics.DrawString(".........", printFont, System.Drawing.Brushes.Black, x, y);
             y += lineOffset;
-            e.Graphics.DrawString(sulno + userid + Betno + date, barcodeFont, System.Drawing.Brushes.Black, x + 11, y + 10);
+           // e.Graphics.DrawString(sulno + userid + Betno + date, barcodeFont, System.Drawing.Brushes.Black, x + 11, y + 10); //temporary changed
+            e.Graphics.DrawString(barcode1, barcodeFont, System.Drawing.Brushes.Black, x + 11, y + 10);
             //y += (lineOffset * (float)3.5);s
             //e.Graphics.DrawString("Tax     5.0%                 $10.00", printFont, Brushes.Black, x, y);
             //y += lineOffset;
@@ -613,7 +614,15 @@ namespace SABONG
 
         protected void cmdcomfirm_Click(object sender, EventArgs e)
         {
-            
+            conn = new MySql.Data.MySqlClient.MySqlConnection(connString);
+            //update claim status to 1
+            conn.Open();
+            queryStr = "";
+            queryStr = "Update tblbet set ClaimStatus = '1' where Barcode = '" + BarCode.Text +"'";
+            cmd = new MySql.Data.MySqlClient.MySqlCommand(queryStr, conn);
+            reader1 = cmd.ExecuteReader();
+            reader1.Close();
+            conn.Close();
         }
 
         protected void Timer1_Tick(object sender, EventArgs e)
