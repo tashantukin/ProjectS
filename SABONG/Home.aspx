@@ -146,7 +146,7 @@
                         <asp:Button ID="cmdcomfirm" runat="server" class="btn-block btn-success btn-rounded h-100 font-weight-bold" Text="COMFIRM"  OnClick="cmdcomfirm_Click" />
                  </div>
                <div class="col-md-3 col-xs-3" style="height:100px;">
-                        <asp:Button ID="cmdrefund" runat="server" class="btn-block btn-warning btn-rounded h-100 font-weight-bold" Text="REFUND"  />
+                        <asp:Button ID="cmdrefund" runat="server" class="btn-block btn-warning btn-rounded h-100 font-weight-bold" Text="REFUND" OnClick="cmdrefund_Click"  />
                </div>
                   <div class="col-md-3 col-xs-3" style="height:100px;">  
                         <asp:Button ID="cmdnewbet" runat="server" class="btn-block btn-primary btn-rounded h-100 font-weight-bold" Text="NEW BET"  />

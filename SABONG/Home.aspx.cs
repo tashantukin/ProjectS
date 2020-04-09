@@ -683,6 +683,19 @@ namespace SABONG
 
         }
 
+        protected void cmdrefund_Click(object sender, EventArgs e)
+        {
+            conn = new MySql.Data.MySqlClient.MySqlConnection(connString);
+            //update refund status to 1
+            conn.Open();
+            queryStr = "";
+            queryStr = "Update tblbet set RefundStatus = '1', ClaimStatus = '1' where Barcode = '" + BarCode.Text + "'";
+            cmd = new MySql.Data.MySqlClient.MySqlCommand(queryStr, conn);
+            reader1 = cmd.ExecuteReader();
+            reader1.Close();
+            conn.Close();
+        }
+
         //protected void Button26_Click(object sender, EventArgs e)
         //{
         //    String connString = System.Configuration.ConfigurationManager.ConnectionStrings["webAppConnString"].ToString();
