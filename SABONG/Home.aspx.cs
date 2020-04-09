@@ -433,8 +433,8 @@ namespace SABONG
 
             int payout = multiplier * (Convert.ToInt32(lblodds.Text));
             int prize = payout - (Convert.ToInt32(txtamount.Text));
-            string barcode1 = sulno +userid + Betno + date;
-            
+            // string barcode1 = sulno +userid + Betno + date; //temporary changed barcode format, 
+            string barcode1 = sulno + userid;
             String connString = System.Configuration.ConfigurationManager.ConnectionStrings["webAppConnString"].ToString();
             conn = new MySql.Data.MySqlClient.MySqlConnection(connString);
             conn.Open();
