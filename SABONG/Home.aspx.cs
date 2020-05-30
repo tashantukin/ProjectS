@@ -9,6 +9,7 @@ using System.Drawing.Printing;
 using com.epson.pos.driver;
 using System.Management;
 
+
 namespace SABONG
 {
     public partial class Home : System.Web.UI.Page
@@ -380,45 +381,55 @@ namespace SABONG
 
         protected void cmdprint_Click(object sender, EventArgs e)
         {
-            PrintDocument pdPrint = new PrintDocument();
-            pdPrint.PrintPage += new PrintPageEventHandler(pdPrint_PrintPage);
-            pdPrint.PrinterSettings.PrinterName = PRINTER_NAME;
 
-            try
-            {                         
-                // Open a printer status monitor for the selected printer.
-                if (m_objAPI.OpenMonPrinter(OpenType.TYPE_PRINTER, PRINTER_NAME) == ErrorCode.SUCCESS || m_objAPI.OpenMonPrinter(OpenType.TYPE_PRINTER, PRINTER_NAME) == ErrorCode.ERR_OPENED)
-                   
+            int maxbet =   Convert.ToInt32(lblmaxbet.Text);
+            int betamount = Convert.ToInt32(txtamount.Text);
+            if (maxbet <= betamount )
+            {
+              
+            }else
+            {
+                PrintDocument pdPrint = new PrintDocument();
+                pdPrint.PrintPage += new PrintPageEventHandler(pdPrint_PrintPage);
+                pdPrint.PrinterSettings.PrinterName = PRINTER_NAME;
+
+                try
                 {
-                    // Change the printer to the indicated printer.
-                    pdPrint.PrinterSettings.PrinterName = PRINTER_NAME;
+                    // Open a printer status monitor for the selected printer.
+                    if (m_objAPI.OpenMonPrinter(OpenType.TYPE_PRINTER, PRINTER_NAME) == ErrorCode.SUCCESS || m_objAPI.OpenMonPrinter(OpenType.TYPE_PRINTER, PRINTER_NAME) == ErrorCode.ERR_OPENED)
 
-                    if (pdPrint.PrinterSettings.IsValid)
                     {
-                        pdPrint.DocumentName = "Testing";
-                        // Start printing
-                        pdPrint.Print();
+                        // Change the printer to the indicated printer.
+                        pdPrint.PrinterSettings.PrinterName = PRINTER_NAME;
 
-                        // Check printing status.
-                        StatusMonitoring();
-                    }
-                    else
-                     
-                    // Always close the Status Monitor after using the Status API.
-                    if (m_objAPI.CloseMonPrinter() != ErrorCode.SUCCESS)
-                    {                  //       MessageBox.Show("Failed to close printer status monitor.", "Program07", MessageBoxButtons.OK, MessageBoxIcon.Exclamation);
-                    }
-                    else
-                    {
-                     //   MessageBox.Show("Failed to open printer status monitor.", "Program07", MessageBoxButtons.OK, MessageBoxIcon.Exclamation);
+                        if (pdPrint.PrinterSettings.IsValid)
+                        {
+                            pdPrint.DocumentName = "Testing";
+                            // Start printing
+                            pdPrint.Print();
+
+                            // Check printing status.
+                            StatusMonitoring();
+                        }
+                        else
+
+                        // Always close the Status Monitor after using the Status API.
+                        if (m_objAPI.CloseMonPrinter() != ErrorCode.SUCCESS)
+                        {                  //       MessageBox.Show("Failed to close printer status monitor.", "Program07", MessageBoxButtons.OK, MessageBoxIcon.Exclamation);
+                        }
+                        else
+                        {
+                            //   MessageBox.Show("Failed to open printer status monitor.", "Program07", MessageBoxButtons.OK, MessageBoxIcon.Exclamation);
+                        }
                     }
                 }
+                catch (Exception ex)
+                {
+                    ex.Message.ToString();
+                    // MessageBox.Show("Failed to open StatusAPI.", "Program07", MessageBoxButtons.OK, MessageBoxIcon.Exclamation);
+                }
             }
-            catch(Exception ex)
-            {
-                ex.Message.ToString();
-                // MessageBox.Show("Failed to open StatusAPI.", "Program07", MessageBoxButtons.OK, MessageBoxIcon.Exclamation);
-            }
+           
         }
 
 
