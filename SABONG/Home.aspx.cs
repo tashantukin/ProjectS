@@ -634,6 +634,44 @@ namespace SABONG
             cmd = new MySql.Data.MySqlClient.MySqlCommand(queryStr, conn);
             reader1 = cmd.ExecuteReader();
             reader1.Close();
+
+            //Get the Fight number from the barcode, just in case they are redeeming on different fight no (e.g from the other day)
+            queryStr = "";
+            queryStr = "SELECT FightID FROM u208625346_derby.tblBet WHERE Barcode = '" + BarCode.Text + "'";
+            cmd = new MySql.Data.MySqlClient.MySqlCommand(queryStr, conn);
+            reader1 = cmd.ExecuteReader();
+            max = "";
+            string fightno = "";
+            while (reader1.HasRows && reader1.Read())
+            {
+                //betswitch
+                fightno = reader1.GetString(reader1.GetOrdinal("FightID"));
+
+            }
+            reader1.Close();
+
+            //get the current total claim in tblfight
+            string totalclaimed = "";
+            queryStr = "";
+            queryStr = "SELECT TotalClaimed FROM u208625346_derby.tblfight WHERE FightID= '" + fightno + "' ";
+            cmd = new MySql.Data.MySqlClient.MySqlCommand(queryStr, conn);
+            reader1 = cmd.ExecuteReader();
+            max = "";
+            while (reader1.HasRows && reader1.Read())
+            {
+                totalclaimed = reader1.GetString(reader1.GetOrdinal("TotalClaimed"));
+             
+            }
+            reader1.Close();
+
+            //increment the claim total in tblfight
+            int totalclaims = System.Convert.ToInt32(totalclaimed) + 1;
+            queryStr = "";
+            queryStr = "Update tblFight set TotalClaimed = '" + totalclaims + "' WHERE FightID= '" + fightno + "'";
+            cmd = new MySql.Data.MySqlClient.MySqlCommand(queryStr, conn);
+            reader1 = cmd.ExecuteReader();
+            reader1.Close();
+
             conn.Close();
         }
 
