@@ -77,7 +77,8 @@
                   </div>
 
                 <div class="col-md-3">
-                     <asp:Button ID="Button11" runat="server"  OnClick="Button11_Click" TabIndex="1" Text="LOGOUT" class="btn btn-danger btn-block" onClientClick="return ShowMsg();"/>
+                     <asp:Button ID="Button11" runat="server"  OnClick="Button11_Click" Text="LOGOUT" class="btn btn-danger btn-block" />
+                    <%--onClientClick="return ShowMsg();"--%>
                  </div>
 
        </div>

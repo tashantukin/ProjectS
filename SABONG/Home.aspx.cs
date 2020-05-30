@@ -203,7 +203,7 @@ namespace SABONG
 
         protected void Button11_Click(object sender, EventArgs e)
         {
-            Response.Redirect("Login.aspx");
+            //Response.Redirect("Login.aspx");
         }
 
         protected void BarCode_TextChanged(object sender, EventArgs e)
@@ -259,7 +259,7 @@ namespace SABONG
                 lblbetamount2.InnerText = "";
                 lblprize2.InnerText = "";
                 lbltotalpayout2.InnerText = "";
-                BarCode.Text = "";
+               // BarCode.Text = "";
 
             }
 
@@ -429,12 +429,13 @@ namespace SABONG
             string date2= DateTime.Now.ToString("MM/dd/yyyy HH:mm:ss");
             //DateTime myDate = DateTime.Now;
             int Betno = (Convert.ToInt32(lblid.Text)) + 1;
+            lblid.Text = Betno.ToString();
             int multiplier = (Convert.ToInt32(txtamount.Text))/ 100;
-
+            string sulno = Label2.Text;
             int payout = multiplier * (Convert.ToInt32(lblodds.Text));
             int prize = payout - (Convert.ToInt32(txtamount.Text));
-            // string barcode1 = sulno +userid + Betno + date; //temporary changed barcode format, 
-            string barcode1 = Label2.Text + Betno;
+            string barcode1 = sulno + userid + Betno + date; //temporary changed barcode format, 
+            //string barcode1 = Label2.Text + Betno;
             String connString = System.Configuration.ConfigurationManager.ConnectionStrings["webAppConnString"].ToString();
             conn = new MySql.Data.MySqlClient.MySqlConnection(connString);
             conn.Open();
@@ -496,7 +497,7 @@ namespace SABONG
             e.Graphics.DrawString(".........", printFont, System.Drawing.Brushes.Black, x, y);
             y += lineOffset;
            // e.Graphics.DrawString(sulno + userid + Betno + date, barcodeFont, System.Drawing.Brushes.Black, x + 11, y + 10); //temporary changed
-            e.Graphics.DrawString(barcode1, barcodeFont, System.Drawing.Brushes.Black, x + 11, y + 10);
+            e.Graphics.DrawString(barcode1, barcodeFont, System.Drawing.Brushes.Black, x + 5, y + 10);
             //y += (lineOffset * (float)3.5);s
             //e.Graphics.DrawString("Tax     5.0%                 $10.00", printFont, Brushes.Black, x, y);
             //y += lineOffset;
