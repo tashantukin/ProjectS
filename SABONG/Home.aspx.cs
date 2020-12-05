@@ -227,42 +227,60 @@ namespace SABONG
             prize2 = "";
             totalpayout2 = "";
 
-            while (reader.HasRows && reader.Read())
-            {
-                sample = reader.GetString(reader.GetOrdinal("fight"));
-                //side
-                side2 = reader.GetString(reader.GetOrdinal("Side"));
-                //odds
-                odds2 = reader.GetString(reader.GetOrdinal("Odds"));
-                //bet amount
-                betamount2 = reader.GetString(reader.GetOrdinal("BetAmount"));
-                //prize
-                prize2 = reader.GetString(reader.GetOrdinal("Price"));
-                //total payout
-                totalpayout2 = reader.GetString(reader.GetOrdinal("TotalWinAmount"));
-            }
-            if (reader.HasRows)
-            {
-                sultada.InnerText = sample;
-                lblside2.InnerText = side2;
-                lblodds2.InnerText = odds2;
-                lblbetamount2.InnerText = betamount2;
-                lblprize2.InnerText = prize2;
-                lbltotalpayout2.InnerText = totalpayout2;
-               // BarCode.Text = "";
+            //while (reader.Read())
+            //{
+            //    sample = reader.GetString(reader.GetOrdinal("fight"));
+            //    //side
+            //    side2 = reader.GetString(reader.GetOrdinal("Side"));
+            //    //odds
+            //    odds2 = reader.GetString(reader.GetOrdinal("Odds"));
+            //    //bet amount
+            //    betamount2 = reader.GetString(reader.GetOrdinal("BetAmount"));
+            //    //prize
+            //    prize2 = reader.GetString(reader.GetOrdinal("Price"));
+            //    //total payout
+            //    totalpayout2 = reader.GetString(reader.GetOrdinal("TotalWinAmount"));
 
-            }
-            else
-            {
-                BarCode.Text = "Invalid barcode";
-                lblside2.InnerText = "";
-                lblodds2.InnerText = "";
-                lblbetamount2.InnerText = "";
-                lblprize2.InnerText = "";
-                lbltotalpayout2.InnerText = "";
-               // BarCode.Text = "";
+            reader.Read();
+                if (reader.HasRows)
+                {
 
-            }
+                    sample = reader.GetString(reader.GetOrdinal("fight"));
+                    //side
+                    side2 = reader.GetString(reader.GetOrdinal("Side"));
+                    //odds
+                    odds2 = reader.GetString(reader.GetOrdinal("Odds"));
+                    //bet amount
+                    betamount2 = reader.GetString(reader.GetOrdinal("BetAmount"));
+                    //prize
+                    prize2 = reader.GetString(reader.GetOrdinal("Price"));
+                    //total payout
+                    totalpayout2 = reader.GetString(reader.GetOrdinal("TotalWinAmount"));
+
+                    sultada.InnerText = sample;
+                    lblside2.InnerText = side2;
+                    lblodds2.InnerText = odds2;
+                    lblbetamount2.InnerText = betamount2;
+                    lblprize2.InnerText = prize2;
+                    lbltotalpayout2.InnerText = totalpayout2;
+                    // BarCode.Text = "";
+
+                }
+                else
+                {
+                    BarCode.Text = "Invalid barcode";
+                    /// BarCode.Text = "";
+                    lblside2.InnerText = "";
+                    lblodds2.InnerText = "";
+                    lblbetamount2.InnerText = "";
+                    lblprize2.InnerText = "";
+                    lbltotalpayout2.InnerText = "";
+                    // BarCode.Text = "";
+
+                }
+
+            //}
+           
 
             reader.Close();
             conn.Close();
@@ -626,6 +644,8 @@ namespace SABONG
 
         protected void cmdcomfirm_Click(object sender, EventArgs e)
         {
+          
+
             conn = new MySql.Data.MySqlClient.MySqlConnection(connString);
             //update claim status to 1
             conn.Open();
@@ -664,6 +684,23 @@ namespace SABONG
             }
             reader1.Close();
 
+
+
+            //get the current total unclaim in tblfight
+            string totalunclaimed = "";
+            queryStr = "";
+            queryStr = "SELECT TotalUnclaimed FROM u208625346_derby.tblfight WHERE FightID= '" + fightno + "' ";
+            cmd = new MySql.Data.MySqlClient.MySqlCommand(queryStr, conn);
+            reader1 = cmd.ExecuteReader();
+            max = "";
+            while (reader1.HasRows && reader1.Read())
+            {
+                totalunclaimed = reader1.GetString(reader1.GetOrdinal("TotalUnclaimed"));
+
+            }
+            reader1.Close();
+
+
             //increment the claim total in tblfight
             int totalclaims = System.Convert.ToInt32(totalclaimed) + 1;
             queryStr = "";
@@ -672,7 +709,27 @@ namespace SABONG
             reader1 = cmd.ExecuteReader();
             reader1.Close();
 
+            //decrement the claim total in tblfight
+            int totalunclaims = System.Convert.ToInt32(totalunclaimed) - 1;
+            queryStr = "";
+            queryStr = "Update tblFight set TotalUnclaimed = '" + totalunclaims + "' WHERE FightID= '" + fightno + "'";
+            cmd = new MySql.Data.MySqlClient.MySqlCommand(queryStr, conn);
+            reader1 = cmd.ExecuteReader();
+            reader1.Close();
+
+
+
             conn.Close();
+
+
+            sultada.InnerText = sample;
+            lblside2.InnerText = side2;
+            lblodds2.InnerText = odds2;
+            lblbetamount2.InnerText = betamount2;
+            lblprize2.InnerText = prize2;
+            lbltotalpayout2.InnerText = totalpayout2;
+            BarCode.Text = "";
+
         }
 
         protected void Timer1_Tick(object sender, EventArgs e)

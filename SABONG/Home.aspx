@@ -159,9 +159,9 @@
             </div>
 
                <asp:Label ID="Label37" runat="server" Text="LAST REDEEM:"></asp:Label>
-                    <asp:Label ID="lblredeem" runat="server" Text="0"></asp:Label>
                <%--</div>--%>        <%--</asp:Panel>--%>              <%--  --%>
 
+              <asp:Label ID="lblredeem" runat="server" Text="0"></asp:Label>
 
           </div>
  <%--<asp:Panel ID="betpanel" runat="server">--%>
@@ -180,10 +180,10 @@
                           <asp:Label ID="status1" runat="server" Text="Label"></asp:Label>
                         <asp:Label ID="Label39" runat="server" Text="Label"></asp:Label>
                         <asp:Label ID="Label38" runat="server" Text="Label"></asp:Label>
-                        <asp:Label ID="Label40" runat="server" Text="Label"></asp:Label>
                        <%--//<span id="status1" runat="server"> </span>--%>
                         <%--  <asp:Label ID="oddsmeron" runat="server" Text="Label"></asp:Label> 
                           <asp:Label ID="oddswala" runat="server" Text="Label"></asp:Label> --%> 
+                        <asp:Label ID="Label40" runat="server" Text="Label"></asp:Label>
                    </ContentTemplate>
          </asp:UpdatePanel> 
 
@@ -218,45 +218,55 @@
             <hr />
 
          <%--AMOUNT BUTTONS--%>
-         <div class ="row container-fluid no-gutters">
+         <div class ="row container-fluid mr-1 pt-2 pb-2 rounded" style="background-color:lightslategrey">
              
-               <div class="col-md-6 col-xs-6" style="height:100px;">
-                    <asp:Button ID="cmd10" runat="server" Font-Size="25pt" OnClick="Button18_Click" Text="10" class="btn-block btn-primary btn-rounded h-100 font-weight-bold"  />
-               </div>
-
-                <div class="col-md-6 col-xs-6" style="height:100px;">
-                       <asp:Button ID="cmd20" runat="server" Font-Size="25pt"  OnClick="Button19_Click" Text="20" class="btn-block btn-primary btn-rounded h-100 font-weight-bold" />
+               <div class="col-md-6 col-xs-6 mb-1 mt-1" style="height:100px;">
+                   
+                    <asp:Button ID="cmd10" runat="server" Font-Size="25pt" OnClick="Button18_Click" Text="10" class="btn-block btn-primary btn-rounded h-100 font-weight-bold mr-5" />
+                  </div>
+                  <%--  --%>
+             
+             
+               <div class="col-md-6 col-xs-6 mb-1 mt-1" style="height:100px;">
+                       <asp:Button ID="cmd20" runat="server" Font-Size="25pt"  OnClick="Button19_Click" Text="20" class="btn-block btn-primary btn-rounded h-100 font-weight-bold mr-1" />
                 </div>  
 
-              <div class="col-md-6 col-xs-6" style="height:100px;">
+            
+               <div class="col-md-6 col-xs-6 mb-1 mt-1" style="height:100px;">
                   <asp:Button ID="cmd50" runat="server" Font-Size="25pt"  OnClick="Button20_Click" Text="50"  class="btn-block  btn-lg btn-primary btn-rounded h-100 font-weight-bold" />
                </div>
 
-             <div class="col-md-6 col-xs-6" style="height:100px;">
+               <div class="col-md-6 col-xs-6 mb-1 mt-1" style="height:100px;">
                 <asp:Button ID="cmd100" runat="server" Font-Size="25pt" OnClick="Button21_Click" Text="100"  class="btn-block  btn-lg btn-primary  btn-rounded h-100 font-weight-bold" />
              </div>
 
-             <div class="col-md-6 col-xs-6" style="height:100px;">
+            
+               <div class="col-md-6 col-xs-6 mb-1 mt-1" style="height:100px;">
                  <asp:Button ID="cmd200" runat="server" Font-Size="25pt" OnClick="Button22_Click" Text="200"  class="btn-block  btn-lg btn-primary btn-rounded h-100 font-weight-bold" />
 
              </div>
 
-               <div class="col-md-6 col-xs-6" style="height:100px;">
+              
+               <div class="col-md-6 col-xs-6 mb-1 mt-1" style="height:100px;">
                 <asp:Button ID="cmd500" runat="server" Font-Size="25pt"  OnClick="Button23_Click" Text="500" class="btn-block  btn-lg btn-primary btn-rounded h-100 font-weight-bold" />
 
              </div>
 
-              <div class="col-md-6 col-xs-6" style="height:100px;">
+             
+               <div class="col-md-6 col-xs-6 mb-1 mt-1" style="height:100px;">
                   <asp:Button ID="cmd1000" runat="server" Font-Size="25pt"  OnClick="Button24_Click" Text="1000"  class="btn-block  btn-lg btn-primary btn-rounded h-100 font-weight-bold" />
              </div>
 
-               <div class="col-md-6 col-xs-6" style="height:100px;">
+              
+               <div class="col-md-6 col-xs-6 mb-1 mt-1" style="height:100px;">
                    <asp:Button ID="cmd5000" runat="server" Font-Size="25pt" OnClick="Button25_Click" Text="5000" class="btn-block  btn-lg btn-primary btn-rounded h-100 font-weight-bold"  />
              </div>
-             <div class="col-md-6 col-xs-6" style="height:100px;">
+            
+               <div class="col-md-6 col-xs-6 mb-1 mt-1" style="height:100px;">
                <asp:Button ID="Button1" runat="server" Font-Size="25pt" Height="70px" OnClick="cmdprint_Click" TabIndex="1" Text="PRINT" class="btn-block  btn-lg btn-success btn-rounded h-100 font-weight-bold "  />
              </div>
-              <div class="col-md-6 col-xs-6" style="height:100px;">
+             
+               <div class="col-md-6 col-xs-6 mb-1 mt-1" style="height:100px;">
                <asp:Button ID="Button3" runat="server" Font-Size="25pt" Height="70px" OnClick="Button10_Click1" TabIndex="1" Text="CLEAR" class="btn-block  btn-lg btn-danger btn-rounded h-100 font-weight-bold"  />
              </div>
          </div>
